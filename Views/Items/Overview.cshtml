@@ -1,0 +1,11 @@
+﻿@model MyApp.Models.Item
+@{
+    var items = new List<string>{"Mouse", "Keyboard", "LCD", "CPU", "Speaker"};
+}
+<ul>
+    @foreach(var item in items)
+    {
+        <li>@item</li>
+    }
+
+</ul>

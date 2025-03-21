@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using MyApp.Data;
+
 var builder = WebApplication.CreateBuilder(args); //It intializes a new instance of the web application of the builder class which sets up the configuration services and the web server
 
 // Add services to the dependency injection container.
 builder.Services.AddControllersWithViews(); //Adding MVC services to the container with support for both the controllers and views. It allows our application to handle incoming HTTP requests and return responses to the client.
+builder.Services.AddDbContext<MyAppContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 //Build the application
 var app = builder.Build(); //This line compiles the app creating the application instance which you can configure and run
