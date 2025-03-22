@@ -1,19 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MyApp.Data;
 using MyApp.Models;
 
 namespace MyApp.Controllers
 {
     public class ItemsController : Controller
     {
-        public IActionResult Overview() //IActionResult is a return type that represents an HTTP response in an ASP.NET Core MVC application. It can return a view, a file, a redirect, etc.
+        private readonly MyAppContext _context; //MyAppContext is a class provided by Entity Framework Core that represents a session with the database, allowing us to query and save data. -context is an instance of this class that is injected into the ItemsController class.
+        public ItemsController(MyAppContext context)
         {
-            var item = new Item() { Name = "My Item" };
-            return View(item);
+            _context = context;
         }
 
-        public IActionResult Edit(int itemId)
+        public async Task<IActionResult> Index()
         {
-            return Content("id = " + itemId);
+            var item = await _context.Items.ToListAsync();
+            return View(item);
         }
     }
 }
