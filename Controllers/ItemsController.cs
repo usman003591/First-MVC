@@ -61,5 +61,17 @@ namespace MyApp.Controllers
             var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
             return View(item);
         }
+
+        [HttpPost, ActionName("Delete")] //The ActionName attribute specifies that this method should be called when the Delete action is invoked.
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var item = await _context.Items.FindAsync(id); //The FindAsync method is used to retrieve the item with the specified id from the database.
+            if (item != null)
+            {
+                _context.Items.Remove(item); //The Remove method of the DbSet class is used to remove an entity from the context.
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

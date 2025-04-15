@@ -19,21 +19,30 @@
             </td>
         </tr>
     </thead>
-    <tbody>
-        @foreach(var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.Name
-                </td>
-                <td>
-                    @item.Price.ToString("N1") $
-                </td>
-                <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                @*     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
-                </td>
-            </tr>
-        }
+    <tbody>  
+       @if(Model == null || !Model.Any())  
+       {  
+           <tr>
+                <td class="text text-danger" colspan="3"><small>The items list is empty. Please add some items</small></td>
+            </tr>  
+       }  
+       else  
+       {  
+           @foreach(var item in Model)  
+           {  
+               <tr>  
+                   <td>  
+                       @item.Name  
+                   </td>  
+                   <td>  
+                       @item.Price.ToString("N1") $  
+                   </td>  
+                   <td>  
+                       <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>  
+                       <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>  
+                   </td>  
+               </tr>  
+           }  
+       }  
     </tbody>
 </table>
